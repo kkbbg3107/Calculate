@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Windows.Forms;
+using postfixCal.Models;
 
 namespace postfixCal
 {
@@ -14,9 +14,33 @@ namespace postfixCal
         /// </summary>
         private static readonly string Url = "https://localhost:5001/api/Calculate";
 
+        /// <summary>
+        /// 數字0-9 運算子呼叫
+        /// </summary>
+        private static readonly string Url2 = "https://localhost:5001/api/text/";
+
+        /// <summary>
+        /// C的呼叫 清空TEXTBOX
+        /// </summary>
+        private static readonly string Url3 = "https://localhost:5001/api/Blank/";
+
+        /// <summary>
+        /// "."的呼叫
+        /// </summary>
+        private static readonly string Url4 = "https://localhost:5001/api/Dot/";
+
+        /// <summary>
+        /// "/"的呼叫
+        /// </summary>
+        private static readonly string Url5 = "https://localhost:5001/api/Div/";
         public Form1()
         {
             this.InitializeComponent();
+        }
+
+        private string DoAction(MainBtn tag)
+        {
+            return tag.ActionMethod();
         }
 
         /// <summary>
@@ -24,9 +48,14 @@ namespace postfixCal
         /// </summary>
         /// <param name="sender">引發事件的物件</param>
         /// <param name="e">事件的額外細項</param>
-        private void ButtonClick(object sender, EventArgs e)
+        private async void ButtonClick(object sender, EventArgs e)
         {            
-            Button b = sender as Button;
+            Button btn = sender as Button;
+            NumBtn num = new NumBtn();
+            num.Text = btn.Text;
+            btn.Tag = num;
+            var btnTag = DoAction((MainBtn)btn.Tag);
+
             if (textBox1.Text == string.Empty)
             {
                 btnsub.Enabled = true;
@@ -34,8 +63,9 @@ namespace postfixCal
                 btnmul.Enabled = true;
                 btnplus.Enabled = true;
             }
+
             // 呼叫webApi post方法 
-            if (b.Text == "api")
+            if (btnTag == "api")
             {               
                 HttpClient client = new HttpClient();
 
@@ -48,24 +78,64 @@ namespace postfixCal
                 HttpResponseMessage response = client.PostAsync(Url, contentPost).Result; // webapi 回傳的物件
 
                 var ans = response.Content.ReadAsStringAsync().Result;
+                if(textBox1.Text != string.Empty)
+                {
+                    var result = JsonConvert.DeserializeObject(ans);
+                    textBox2.Text = result.ToString();
+                }                                             
+            }
+            else if (btnTag == "C") // 呼叫web API ge方法
+            {                                               
+                using (HttpClient client = new HttpClient())
+                {
+                    var url = Url3 + btn.Text;
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
 
-                var result = JsonConvert.DeserializeObject(ans);
-                textBox2.Text = result.ToString();                                
-            }
-            else if (b.Text == "C")
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
+                    textBox1.Text = resultObj.Text;
+                }
+            }        
+            else if (btnTag == ".") // 呼叫web API get方法
             {
-                textBox1.Text = string.Empty;
+                using (HttpClient client = new HttpClient())
+                {
+                    var url = Url4;
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
+                    textBox1.Text += resultObj.Text;
+                }
             }
-            else if (b.Text == "run")
+            else if (btnTag == "/") // 呼叫web api get 方法 配合url + "/" 不合http規範
             {
-                dobtn d = new dobtn();
-                var a = d.PostNumber(textBox1.Text);
-                textBox1.Text = a;
+                using (HttpClient client = new HttpClient())
+                {
+                    var url = Url5;
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
+                    textBox1.Text += resultObj.Text;
+                }
             }
-            else
+            else // 呼叫web API ge方法
             {
-                textBox1.Text += b.Text;
+                using (HttpClient client = new HttpClient())
+                {
+                    var url = Url2 + btn.Text;
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
+
+                    var responseBody = await response.Content.ReadAsStringAsync();                    
+                    var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
+                    textBox1.Text += resultObj.Text;
+                }
             }
-        }    
+        }        
     }
 }

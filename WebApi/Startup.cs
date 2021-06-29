@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Services;
+using WebApi.InterFace;
 
 namespace WebApi
 {
@@ -34,6 +35,10 @@ namespace WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi", Version = "v1" });
             });
             services.AddTransient<IDataService, InfixToPostfix>();
+            services.AddTransient<IGetData, TextService>();
+            services.AddTransient<IClear, ToBlankService>();
+            services.AddTransient<IDot, DotService>();
+            services.AddTransient<IDiv, DivService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

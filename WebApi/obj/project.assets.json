@@ -199,11 +199,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kkbbg\\OneDrive\\桌面\\計算機\\postfixCal\\postfixCal\\WebApi\\WebApi.csproj",
+      "projectUniqueName": "C:\\cmoney-calculate\\postfixCal\\postfixCal\\WebApi\\WebApi.csproj",
       "projectName": "WebApi",
-      "projectPath": "C:\\Users\\kkbbg\\OneDrive\\桌面\\計算機\\postfixCal\\postfixCal\\WebApi\\WebApi.csproj",
+      "projectPath": "C:\\cmoney-calculate\\postfixCal\\postfixCal\\WebApi\\WebApi.csproj",
       "packagesPath": "C:\\Users\\kkbbg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kkbbg\\OneDrive\\桌面\\計算機\\postfixCal\\postfixCal\\WebApi\\obj\\",
+      "outputPath": "C:\\cmoney-calculate\\postfixCal\\postfixCal\\WebApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

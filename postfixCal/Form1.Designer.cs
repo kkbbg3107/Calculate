@@ -51,7 +51,6 @@ namespace postfixCal
             this.label1 = new System.Windows.Forms.Label();
             this.button20 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button15 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -310,24 +309,11 @@ namespace postfixCal
             this.textBox2.Size = new System.Drawing.Size(552, 35);
             this.textBox2.TabIndex = 23;
             // 
-            // button15
-            // 
-            this.button15.Font = new System.Drawing.Font("Yu Gothic", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.Location = new System.Drawing.Point(73, 240);
-            this.button15.Margin = new System.Windows.Forms.Padding(4);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(103, 54);
-            this.button15.TabIndex = 24;
-            this.button15.Text = "run";
-            this.button15.UseVisualStyleBackColor = true;
-            this.button15.Click += new System.EventHandler(this.ButtonClick);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(788, 660);
-            this.Controls.Add(this.button15);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button20);
             this.Controls.Add(this.label1);
@@ -383,7 +369,6 @@ namespace postfixCal
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button20;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button15;
     }
 }
 
