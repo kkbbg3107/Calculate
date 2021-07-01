@@ -36,12 +36,7 @@ namespace postfixCal
         public Form1()
         {
             this.InitializeComponent();
-        }
-
-        private string DoAction(MainBtn tag)
-        {
-            return tag.ActionMethod();
-        }
+        }     
 
         /// <summary>
         /// 點擊對應按鈕textbox顯示v相應數值
@@ -51,11 +46,7 @@ namespace postfixCal
         private async void ButtonClick(object sender, EventArgs e)
         {            
             Button btn = sender as Button;
-            NumBtn num = new NumBtn();
-            num.Text = btn.Text;
-            btn.Tag = num;
-            var btnTag = DoAction((MainBtn)btn.Tag);
-
+            
             if (textBox1.Text == string.Empty)
             {
                 btnsub.Enabled = true;
@@ -65,7 +56,7 @@ namespace postfixCal
             }
 
             // 呼叫webApi post方法 
-            if (btnTag == "api")
+            if (btn.Text == "api")
             {               
                 HttpClient client = new HttpClient();
 
@@ -84,7 +75,7 @@ namespace postfixCal
                     textBox2.Text = result.ToString();
                 }                                             
             }
-            else if (btnTag == "C") // 呼叫web API ge方法
+            else if (btn.Text == "C") // 呼叫web API get方法
             {                                               
                 using (HttpClient client = new HttpClient())
                 {
@@ -94,10 +85,10 @@ namespace postfixCal
 
                     var responseBody = await response.Content.ReadAsStringAsync();
                     var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
-                    textBox1.Text = resultObj.Text;
+                    textBox1.Text = resultObj.text;
                 }
             }        
-            else if (btnTag == ".") // 呼叫web API get方法
+            else if (btn.Text == ".") // 呼叫web API get方法
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -107,10 +98,10 @@ namespace postfixCal
 
                     var responseBody = await response.Content.ReadAsStringAsync();
                     var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
-                    textBox1.Text += resultObj.Text;
+                    textBox1.Text += resultObj.text;
                 }
             }
-            else if (btnTag == "/") // 呼叫web api get 方法 配合url + "/" 不合http規範
+            else if (btn.Text == "/") // 呼叫web api get 方法 配合url + "/" 不合http規範
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -120,10 +111,10 @@ namespace postfixCal
 
                     var responseBody = await response.Content.ReadAsStringAsync();
                     var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
-                    textBox1.Text += resultObj.Text;
+                    textBox1.Text += resultObj.text;
                 }
             }
-            else // 呼叫web API ge方法
+            else // 呼叫web API get方法
             {
                 using (HttpClient client = new HttpClient())
                 {
@@ -133,7 +124,7 @@ namespace postfixCal
 
                     var responseBody = await response.Content.ReadAsStringAsync();                    
                     var resultObj = JsonConvert.DeserializeObject<NumBtn>(responseBody);
-                    textBox1.Text += resultObj.Text;
+                    textBox1.Text += resultObj.text;
                 }
             }
         }        

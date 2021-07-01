@@ -1,14 +1,19 @@
-﻿namespace postfixCal.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace postfixCal.Models
 {
     /// <summary>
-    /// 提供物件存放按鈕的值
+    /// 控制按鈕內容的類
     /// </summary>
-    class NumBtn : MainBtn
+    class NumBtn
     {
-        public string Text { get; set; }
-        public override string ActionMethod()
-        {
-            return Text;
-        }
+        /// <summary>
+        /// 決定回傳內容
+        /// </summary>
+        public string text { get; set; }
     }
 }

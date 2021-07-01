@@ -298,6 +298,7 @@ namespace postfixCal
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(103, 54);
             this.button20.TabIndex = 22;
+            this.button20.Tag = "";
             this.button20.Text = "api";
             this.button20.UseVisualStyleBackColor = true;
             this.button20.Click += new System.EventHandler(this.ButtonClick);
